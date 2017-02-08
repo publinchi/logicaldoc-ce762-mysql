@@ -1,9 +1,9 @@
 version: '2'
 services:
   logicaldoc:
-    build: ../logicaldoc-ee762-mysql
+    build: ../logicaldoc-mysql
     container_name: logicaldoc
-    image: logicaldoc/logicaldoc-ee762-mysql
+    image: mcsaky/logicaldoc-mysql
     ports:
         - 8080:8080
     volumes:
