@@ -1,7 +1,7 @@
 # Use phusion/baseimage as base image
-# Logicaldoc Document Management System ( http://www.logicaldoc.com )
+# LogicalDOC Document Management System ( http://www.logicaldoc.com )
 FROM phusion/baseimage:0.9.18
-MAINTAINER "Mihai Csaky" <mihai.csaky@sysop-consulting.ro>
+MAINTAINER "Alessandro Gasparini" <devel@logicaldoc.com>
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -10,7 +10,7 @@ CMD ["/sbin/my_init"]
 ENV MYSQL_SERVER mysql-server-5.6
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME /opt/logicaldoc/tomcat
-ENV JAVA_HOME /usr/lib/jvm/java-7-oracle/
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/
 ENV DATADIR /var/lib/mysql
 
 # prepare system for mysql installation
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y perl pwgen --no-install-recommends 
 
 # install mysql
-RUN  apt-get install -y ${MYSQL_SERVER} \
+RUN apt-get install -y ${MYSQL_SERVER} \
     && rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql
 
 RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf \
@@ -36,13 +36,12 @@ RUN \
   echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
   add-apt-repository -y ppa:webupd8team/java && \
   apt-get update && \
-  apt-get install -y oracle-java7-installer
+  apt-get install -y oracle-java8-installer
 
 # some required software for logicaldoc plugins
 RUN apt-get -y install \ 
     libreoffice \
     imagemagick \
-    swftools \
     liblog4j1.2-java \
     libgnumail-java \
     ant \
@@ -56,16 +55,16 @@ RUN apt-get -y install \
 
 #download and unzip logicaldoc installer 
 RUN mkdir /opt/logicaldoc
-RUN curl -L http://netcologne.dl.sourceforge.net/project/logicaldoc/distribution/LogicalDOC%20CE%207.4/logicaldoc-community-installer-7.4.3.zip \
-    -o /opt/logicaldoc/logicaldoc-community-installer-7.4.3.zip  && \
-    unzip /opt/logicaldoc/logicaldoc-community-installer-7.4.3.zip -d /opt/logicaldoc && \
-    rm /opt/logicaldoc/logicaldoc-community-installer-7.4.3.zip
+RUN curl -L https://s3.amazonaws.com/logicaldoc-dist/logicaldoc/installers/logicaldoc-installer-7.6.2.zip \
+    -o /opt/logicaldoc/logicaldoc-installer-7.6.2.zip  && \
+    unzip /opt/logicaldoc/logicaldoc-installer-7.6.2.zip -d /opt/logicaldoc && \
+    rm /opt/logicaldoc/logicaldoc-installer-7.6.2.zip
 
 #add configuration scripts
 ADD 01_mysql.sh /etc/my_init.d/
 ADD 02_logicaldoc.sh /etc/my_init.d/
 ADD wait-for-it.sh /opt/logicaldoc
-ADD auto-install.xml /opt/logicaldoc
+ADD auto-install-762.xml /opt/logicaldoc
 
 #volumes for persistent storage
 VOLUME /var/lib/mysql
