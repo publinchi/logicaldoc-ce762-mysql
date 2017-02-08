@@ -76,11 +76,11 @@ EXPOSE 8080
 #mysql service setup
 RUN mkdir /etc/service/mysqld/
 ADD mysqld.sh /etc/service/mysqld/run
+RUN chmod +x /etc/service/mysqld/run
 
 #logicaldoc service setup
 RUN mkdir /etc/service/logicaldoc/
 ADD logicaldoc.sh /etc/service/logicaldoc/run
-
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

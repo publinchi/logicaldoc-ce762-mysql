@@ -7,7 +7,7 @@ if [ ! -d /opt/logicaldoc/tomcat ]; then
  java -jar /opt/logicaldoc/logicaldoc-installer.jar /opt/logicaldoc/auto-install-762.xml
  killall mysqld_safe & sleep 3s
 else
- printf "Logicaldoc already installed\n"
+ printf "LogicalDOC already installed\n"
 fi
 
 
