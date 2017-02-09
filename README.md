@@ -30,7 +30,7 @@ Activation of LogicalDOC Trial (Enteprise Edition)
 After you reach the login screen you should activate the Trial period, click on "The license is not valid" and use admin/admin as credentials, then click on the button "Activate the License" and enter the license code (AKA Activation No) you have.
 
 How to get a Trial 30days license code
-If you need an activation code, you can get one delivered to your email bly filling-out the form at http://www.logicaldoc.com/en/product/free-trial
+If you need an activation code, you can get one delivered to your email by filling-out the form at http://www.logicaldoc.com/en/product/free-trial
 
 Once activated you will be able to access LogicalDOC with a browser
 at http://localhost:8080 and login with username: *admin*, password: *admin*
