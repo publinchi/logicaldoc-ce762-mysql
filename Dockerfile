@@ -38,20 +38,17 @@ RUN \
   apt-get update && \
   apt-get install -y oracle-java8-installer
 
-# some required software for logicaldoc plugins
+# some required software for LogicalDOC plugins
 RUN apt-get -y install \ 
     libreoffice \
     imagemagick \
-    liblog4j1.2-java \
-    libgnumail-java \
-    ant \
     curl \
     unzip \
     sudo \
     tar \
     ghostscript \
-    xpdf \
-    tesseract-ocr
+    tesseract-ocr \
+    pdftohtml
 
 #download and unzip logicaldoc installer 
 RUN mkdir /opt/logicaldoc
@@ -68,6 +65,7 @@ ADD auto-install-762.xml /opt/logicaldoc
 
 #volumes for persistent storage
 VOLUME /var/lib/mysql
+VOLUME /opt/logicaldoc/conf
 VOLUME /opt/logicaldoc/repository
 
 #port to connect to
