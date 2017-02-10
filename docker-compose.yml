@@ -8,9 +8,12 @@ services:
         - 8080:8080
     volumes:
         - mysqldata:/var/lib/mysql
+        - confdata:/opt/logicaldoc/conf  
         - repodata:/opt/logicaldoc/repository
 volumes:
     mysqldata:
+        external: true
+    confdata:
         external: true
     repodata:
         external: true
